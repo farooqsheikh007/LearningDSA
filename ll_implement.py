@@ -1,23 +1,21 @@
 class Node:
-  def __init__(self,prev,value,next):
+  def __init__(self,value,next):
     self.value = value
     self.next = next
-    self.prev = prev
 
 class Linked_list:
   def __init__(self,value):
-    self.head = Node(None,value,None)
+    self.head = Node(value,None)
     self.tail = self.head
     self.length = 1
 
   def append(self,value):
-      self.tail.next = Node(self.tail,value,None)
+      self.tail.next = Node(value,None)
       self.tail = self.tail.next
       self.length+=1
   
   def prepend(self,value):
-      self.head.prev = Node(None,value,self.head)
-      self.head = self.head.prev
+      self.head = Node(value, self.head)
       self.length+=1
 
   def insert(self,index,value):
@@ -31,7 +29,7 @@ class Linked_list:
       self.append(value)
       return
     prev = self.traverse_to_index(index-1)
-    prev.next = Node(prev,value,prev.next)
+    prev.next = Node(value, prev.next)
     self.length+=1
 
   def remove(self, index):
@@ -40,7 +38,6 @@ class Linked_list:
     if index == 0:
       head = self.head
       self.head = head.next
-      self.head.prev = None
       del head # not necessary 
       self.length-=1
       return
@@ -54,7 +51,6 @@ class Linked_list:
     prev = self.traverse_to_index(index-1)
     crnt = prev.next
     prev.next = crnt.next
-    crnt.next.prev = prev
     del crnt  # not necessary
     self.length-=1
     return

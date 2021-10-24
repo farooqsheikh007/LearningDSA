@@ -4,7 +4,7 @@ class Node:
     self.next = next
     self.prev = prev
 
-class Linked_list:
+class Double_Linked_list:
   def __init__(self,value):
     self.head = Node(None,value,None)
     self.tail = self.head
@@ -70,32 +70,32 @@ class Linked_list:
 
   def access(self):
       current = self.head
+      print("[", end='')
       while current is not None:
         print(current.value, end='')
         print(',', end='') if current.next is not None else None
         current = current.next
-      print('\n')
+      print(']\n')
 
 print('\n')
-ll = Linked_list(10)
-ll.access()
-ll.append(5)
-ll.access()
-ll.prepend(16)
-ll.access()
-ll.insert(1,"apple")
-ll.access()
-ll.insert(0,"android")
-ll.access()
-ll.insert(4,"windows")
-ll.access()
-print(ll.traverse_to_index(5).value)
-ll.access()
-ll.remove(4)
-ll.access()
-ll.remove(2)
-ll.access()
-
+dll = Double_Linked_list(10)
+dll.access()
+dll.append(5)
+dll.access()
+dll.prepend(16)
+dll.access()
+dll.insert(1,"apple")
+dll.access()
+dll.insert(0,"android")
+dll.access()
+dll.insert(4,"windows")
+dll.access()
+print(dll.traverse_to_index(5).value)
+dll.access()
+dll.remove(4)
+dll.access()
+dll.remove(2)
+dll.access()
 '''
 ####### ERRORS MADE ##############
   1. classes do not have () while creating them
