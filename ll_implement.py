@@ -1,21 +1,23 @@
 class Node:
-  def __init__(self,value,next):
+  def __init__(self,prev,value,next):
     self.value = value
     self.next = next
+    self.prev = prev
 
 class Linked_list:
   def __init__(self,value):
-    self.head = Node(value,None)
+    self.head = Node(None,value,None)
     self.tail = self.head
     self.length = 1
 
   def append(self,value):
-      self.tail.next = Node(value,None)
+      self.tail.next = Node(self.tail,value,None)
       self.tail = self.tail.next
       self.length+=1
   
   def prepend(self,value):
-      self.head = Node(value, self.head)
+      self.head.prev = Node(None,value,self.head)
+      self.head = self.head.prev
       self.length+=1
 
   def insert(self,index,value):
@@ -29,7 +31,7 @@ class Linked_list:
       self.append(value)
       return
     prev = self.traverse_to_index(index-1)
-    prev.next = Node(value, prev.next)
+    prev.next = Node(prev,value,prev.next)
     self.length+=1
 
   def remove(self, index):
@@ -38,6 +40,7 @@ class Linked_list:
     if index == 0:
       head = self.head
       self.head = head.next
+      self.head.prev = None
       del head # not necessary 
       self.length-=1
       return
@@ -51,6 +54,7 @@ class Linked_list:
     prev = self.traverse_to_index(index-1)
     crnt = prev.next
     prev.next = crnt.next
+    crnt.next.prev = prev
     del crnt  # not necessary
     self.length-=1
     return
@@ -72,6 +76,18 @@ class Linked_list:
         current = current.next
       print('\n')
 
+  def reverse(self):
+    first = self.head
+    self.tail = self.head
+    second = first.next
+    while(second):
+      temp = second.next
+      second.next = first
+      first=second
+      second = temp
+    self.head.next = None
+    self.head = first
+    return self.access()
 print('\n')
 ll = Linked_list(10)
 ll.access()
@@ -82,16 +98,10 @@ ll.access()
 ll.insert(1,"apple")
 ll.access()
 ll.insert(0,"android")
-ll.access()
+ll.access() 
 ll.insert(4,"windows")
 ll.access()
-print(ll.traverse_to_index(5).value)
-ll.access()
-ll.remove(4)
-ll.access()
-ll.remove(2)
-ll.access()
-
+ll.reverse()
 '''
 ####### ERRORS MADE ##############
   1. classes do not have () while creating them
